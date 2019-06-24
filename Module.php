@@ -198,8 +198,8 @@ class Module extends \Aurora\System\Module\AbstractModule
 	{
 		\Aurora\System\Api::checkUserRoleIsAtLeast(\Aurora\System\Enums\UserRole::NormalUser);
 
-		$sAction = (string) \Aurora\System\Application::GetPathItemByIndex(1, '');
-		$sFileName = (string) \Aurora\System\Application::GetPathItemByIndex(2, '');
+		$sAction = (string) \Aurora\System\Router::getItemByIndex(1, '');
+		$sFileName = (string) \Aurora\System\Router::getItemByIndex(2, '');
 		if ($sAction === 'export')
 		{
 			$this->ExportMail($sFileName);
