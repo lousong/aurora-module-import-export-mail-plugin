@@ -172,7 +172,7 @@ ImportExportPopup.prototype.initUploader = function ()
 {
 	var self = this;
 
-	if (this.uploaderButton() && this.oJua === null)
+	if (this.uploaderButton())
 	{
 		this.oJua = new CJua({
 			'action': '?/Api/',
@@ -209,7 +209,7 @@ ImportExportPopup.prototype.onFileUploadSelect = function (sFileUid, oFileData)
 	{
 		Screens.showError(TextUtils.i18n('%MODULENAME%/ERROR_SIZE_LIMIT', {'SIZE': Settings.UploadSizeLimitMb}));
 		return false;
-	}	
+	}
 };
 
 ImportExportPopup.prototype.onFileUploadStart = function ()
