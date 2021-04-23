@@ -66,7 +66,8 @@ ImportExportPopup.prototype.PopupTemplate = '%ModuleName%_ImportExportPopup';
 
 ImportExportPopup.prototype.onOpen = function ()
 {
-	this.options(MailCache.folderList().getOptions('', true, false, false));
+	var oFolderList = MailCache.oFolderListItems[MailCache.editedAccountId()];
+	this.options(oFolderList ? oFolderList.getOptions('', true, false, false) : []);
 };
 
 ImportExportPopup.prototype.onShow = function ()
@@ -140,7 +141,7 @@ ImportExportPopup.prototype.onExportMailResponse = function (oResponse)
 			Settings.ModuleName,
 			'ExportMailGenerate',
 			{
-				'AccountId': MailCache.currentAccountId(),
+				'AccountId': MailCache.editedAccountId(),
 				'Folder': this.selectedFolder(),
 				'Zip': this.zipFile()
 			}
@@ -187,7 +188,7 @@ ImportExportPopup.prototype.initUploader = function ()
 				'Method': 'ImportMail',
 				'Parameters':  function () {
 					return JSON.stringify({
-						'AccountId': MailCache.currentAccountId(),
+						'AccountId': MailCache.editedAccountId(),
 						'Folder': self.selectedFolder()
 					});
 				}
