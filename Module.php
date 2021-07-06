@@ -97,7 +97,7 @@ class Module extends \Aurora\System\Module\AbstractModule
 
 				if ($Folder !== null && $Zip !== null
 					&& $oAccount
-					&& $oAccount->IdUser === $oUser->EntityId)
+					&& $oAccount->IdUser === $oUser->Id)
 				{
 					$oApiMail = $this->getMailManager();
 					$iOffset = 0;
