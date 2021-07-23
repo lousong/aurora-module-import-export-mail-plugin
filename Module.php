@@ -57,7 +57,7 @@ class Module extends \Aurora\System\Module\AbstractModule
 		$mResult = false;
 		$oUser = \Aurora\System\Api::getAuthenticatedUser();
 
-		if ($oUser instanceof \Aurora\Modules\Core\Classes\User)
+		if ($oUser instanceof \Aurora\Modules\Core\Models\User)
 		{
 			$sZipName = \md5(\time().\rand(1000, 9999));
 			$mResult = [
@@ -85,7 +85,7 @@ class Module extends \Aurora\System\Module\AbstractModule
 		$bResult = false;
 		$oUser = \Aurora\System\Api::getAuthenticatedUser();
 
-		if ($oUser instanceof \Aurora\Modules\Core\Classes\User)
+		if ($oUser instanceof \Aurora\Modules\Core\Models\User)
 		{
 			$sUserPublicId = $oUser->PublicId;
 			try
@@ -178,7 +178,7 @@ class Module extends \Aurora\System\Module\AbstractModule
 		$mResult = false;
 		$oUser = \Aurora\System\Api::getAuthenticatedUser();
 
-		if ($oUser instanceof \Aurora\Modules\Core\Classes\User)
+		if ($oUser instanceof \Aurora\Modules\Core\Models\User)
 		{
 			if ($this->getFilecacheManager()->isFileExists($oUser->PublicId, $Zip, '.info'))
 			{
@@ -217,7 +217,7 @@ class Module extends \Aurora\System\Module\AbstractModule
 		$oUser = \Aurora\System\Api::getAuthenticatedUser();
 		@ob_start();
 		ini_set('display_errors', 0);
-		if ($oUser instanceof \Aurora\Modules\Core\Classes\User)
+		if ($oUser instanceof \Aurora\Modules\Core\Models\User)
 		{
 			$this->getFilecacheManager()->put($oUser->PublicId, $sFileName, 'download', '.info');
 			$this->Log('Start downloading ZIP file.. ');
@@ -284,10 +284,10 @@ class Module extends \Aurora\System\Module\AbstractModule
 		$bResult = false;
 		$oAccount = \Aurora\System\Api::GetModule('Mail')->GetAccount($AccountId);
 
-		if ($oAccount instanceof \Aurora\Modules\Mail\Classes\Account && is_array($UploadData))
+		if ($oAccount instanceof \Aurora\Modules\Mail\Models\MailAccount && is_array($UploadData))
 		{
 			$oUser = \Aurora\System\Api::getAuthenticatedUser();
-			if (is_array($UploadData) && $oUser instanceof \Aurora\Modules\Core\Classes\User)
+			if (is_array($UploadData) && $oUser instanceof \Aurora\Modules\Core\Models\User)
 			{
 				$iSize = (int) $UploadData['size'];
 				$iUploadSizeLimitMb = $this->getConfig('UploadSizeLimitMb', 0);
