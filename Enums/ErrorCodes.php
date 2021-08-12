@@ -16,12 +16,14 @@ class ErrorCodes
 {
 	const UnknownError	= 1001;
 	const ErrorSizeLimit	= 1002;
+	const ZipArchiveClassNotFound	= 1003;
 
 	/**
 	 * @var array
 	 */
 	protected $aConsts = [
 		'UnknownError'	=> self::UnknownError,
-		'ErrorSizeLimit'	=> self::ErrorSizeLimit
+		'ErrorSizeLimit'	=> self::ErrorSizeLimit,
+		'ZipArchiveClassNotFound' => self::ZipArchiveClassNotFound
 	];
 }

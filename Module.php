@@ -42,6 +42,7 @@ class Module extends \Aurora\System\Module\AbstractModule
 		\Aurora\System\Api::checkUserRoleIsAtLeast(\Aurora\System\Enums\UserRole::Anonymous);
 
 		return [
+			'AllowZip' => class_exists('ZipArchive'),
 			'UploadSizeLimitMb' => $this->getConfig('UploadSizeLimitMb', 0)
 		];
 	}
@@ -311,26 +312,33 @@ class Module extends \Aurora\System\Module\AbstractModule
 					if ($this->getFilecacheManager()->isFileExists($oUser->UUID, $sSavedName))
 					{
 						$sSavedFullName = $this->getFilecacheManager()->generateFullFilePath($oUser->UUID, $sSavedName);
-						$oZip = new \ZipArchive();
-						if ($oZip->open($sSavedFullName))
+						if (class_exists('ZipArchive'))
 						{
-							for($i = 0; $i < $oZip->numFiles; $i++)
+							$oZip = new \ZipArchive();
+							if ($oZip->open($sSavedFullName))
 							{
-								$sFileName = $oZip->getNameIndex($i);
-								if (strtolower(pathinfo($sFileName, PATHINFO_EXTENSION)) === 'eml')
+								for($i = 0; $i < $oZip->numFiles; $i++)
 								{
-									$aFileParams = $oZip->statIndex($i);
-									$iStreamSize = $aFileParams['size'];
-									$rMessage = $oZip->getStream($sFileName);
-									if (is_resource($rMessage))
+									$sFileName = $oZip->getNameIndex($i);
+									if (strtolower(pathinfo($sFileName, PATHINFO_EXTENSION)) === 'eml')
 									{
-										$this->getMailManager()->appendMessageFromStream($oAccount, $rMessage, $Folder, $iStreamSize);
-										@fclose($rMessage);
+										$aFileParams = $oZip->statIndex($i);
+										$iStreamSize = $aFileParams['size'];
+										$rMessage = $oZip->getStream($sFileName);
+										if (is_resource($rMessage))
+										{
+											$this->getMailManager()->appendMessageFromStream($oAccount, $rMessage, $Folder, $iStreamSize);
+											@fclose($rMessage);
+										}
 									}
 								}
+								$oZip->close();
+								$bResult = true;
 							}
-							$oZip->close();
-							$bResult = true;
+						}
+						else
+						{
+							throw new \Aurora\System\Exceptions\BaseException(Enums\ErrorCodes::ZipArchiveClassNotFound);							
 						}
 					}
 					else
