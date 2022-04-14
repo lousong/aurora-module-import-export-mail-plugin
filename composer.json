@@ -4,8 +4,8 @@
 	"require": {
 		"php": ">=5.4.0",
 		"afterlogic/aurora-framework": "~0.9.0",
-		"afterlogic/aurora-module-mail": "*",
-		"afterlogic/aurora-module-webclient-mail": "*",
+		"afterlogic/aurora-module-mail": "~0.9.0",
+		"afterlogic/aurora-module-webclient-mail": "~0.9.0",
 		"maennchen/zipstream-php": "~0.5.2"
 	},
 	"extra": {
