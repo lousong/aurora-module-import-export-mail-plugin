@@ -1,18 +1,18 @@
 {
-  "Disabled": [
-    false,
-    "bool"
-  ],
-  "Disabled_Description": [
-    "",
-    "string"
-  ],
-  "UploadSizeLimitMb": [
-    100,
-    "int"
-  ],
-  "UploadSizeLimitMb_Description": [
-    "",
-    "string"
-  ]
+	"Disabled": [
+		false,
+		"bool"
+	],
+	"Disabled_Description": [
+		"",
+		"string"
+	],
+	"UploadSizeLimitMb": [
+		100,
+		"int"
+	],
+	"UploadSizeLimitMb_Description": [
+		"",
+		"string"
+	]
 }
